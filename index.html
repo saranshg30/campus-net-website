@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Net | Unfiltered College Life</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000000;
+      --surface: #0a0a0a;
+      --surface-elevated: #111111;
+      --border: rgba(255, 255, 255, 0.12);
+      --border-hover: rgba(255, 255, 255, 0.24);
+      --text: #ffffff;
+      --text-muted: #a1a1aa;
+      --brand: #ffffff;
+      --accent: #8b5cf6;
+      --accent-muted: rgba(139, 92, 246, 0.1);
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    
+    html { scroll-behavior: smooth; }
+
+    body, html {
+      margin: 0; padding: 0;
+      width: 100%; min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Fixed Glass Header */
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .logo svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+    
+    .nav-links .nav-btn {
+      background: var(--text);
+      color: var(--bg);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .nav-links .nav-btn:hover {
+      background: #e4e4e7;
+      color: var(--bg);
+    }
+
+    /* Standard Elements */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .badge-indicator {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .section-title {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin: 0 0 20px;
+    }
+
+    .section-desc {
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0 0 40px;
+      max-width: 600px;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 180px 0 120px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 8vw, 88px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.05em;
+      margin: 0 auto 24px;
+      max-width: 900px;
+      background: linear-gradient(180deg, #fff 0%, #a1a1aa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 22px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin: 0 auto 48px;
+      max-width: 650px;
+    }
+
+    .store-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .store-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      padding: 12px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    .store-btn:hover {
+      background: #1a1a1a;
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .store-btn svg { width: 28px; height: 28px; }
+    .store-btn-text { text-align: left; }
+    .store-btn-text span { display: block; font-size: 11px; color: var(--text-muted); font-weight: 500; }
+    .store-btn-text strong { display: block; font-size: 16px; font-weight: 600; margin-top: 2px; }
+
+    /* Bento Grid (Comprehensive Features) */
+    .bento-section {
+      padding: 60px 0 120px;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 24px;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 960px) {
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .bento-grid { grid-template-columns: 1fr; }
+    }
+
+    .bento-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
+    }
+
+    .bento-box:hover {
+      border-color: var(--border-hover);
+    }
+
+    .bento-icon {
+      width: 56px; height: 56px;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .bento-icon svg {
+      width: 28px; height: 28px;
+      color: var(--text);
+      stroke-width: 1.5;
+    }
+
+    .bento-box h3 {
+      font-size: 22px; font-weight: 600; margin: 0 0 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .bento-box p {
+      font-size: 16px; color: var(--text-muted); line-height: 1.6; margin: 0;
+    }
+
+    .bento-large {
+      grid-column: span 2;
+    }
+
+    @media (max-width: 960px) {
+      .bento-large { grid-column: span 1; }
+    }
+
+    /* Device Showcases Layout */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 120px;
+      padding: 100px 0;
+      align-items: center;
+    }
+
+    .showcase-grid.reverse {
+      direction: rtl;
+    }
+    .showcase-grid.reverse > * {
+      direction: ltr;
+    }
+
+    @media (max-width: 1024px) {
+      .showcase-grid, .showcase-grid.reverse {
+        grid-template-columns: 1fr;
+        gap: 60px;
+        padding: 60px 0;
+      }
+    }
+
+    /* Mockups Base */
+    .mockup-perspective {
+      perspective: 1000px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .device {
+      width: 340px; height: 680px;
+      background: #000;
+      border-radius: 48px;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 
+        0 0 0 10px #111,
+        0 0 0 12px #222,
+        0 40px 80px rgba(0,0,0,0.8);
+      position: relative;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .device.tilt-left { transform: rotateY(-8deg) rotateX(4deg); }
+    .device.tilt-right { transform: rotateY(8deg) rotateX(4deg); }
+    
+    .mockup-perspective:hover .device {
+      transform: rotateY(0deg) rotateX(0deg) scale(1.02);
+    }
+
+    .device-notch {
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 130px; height: 28px;
+      background: #111;
+      border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;
+      z-index: 10;
+    }
+
+    /* Specific UI - Feed */
+    .app-header {
+      padding: 56px 20px 16px; display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08); background: #000;
+    }
+    .app-header h2 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.5px; }
+    .app-tabs { display: flex; gap: 12px; padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .app-tab { font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; }
+    .tab-active { background: #fff; color: #000; }
+    .tab-inactive { border: 1px solid rgba(255,255,255,0.12); color: #a1a1aa; }
+    
+    .app-body { flex: 1; background: #000; padding: 16px; overflow: hidden; display: flex; flex-direction: column; gap: 16px; }
+    .app-post { background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 16px; }
+    .post-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items:center; justify-content:center; font-weight: bold; font-size:14px; }
+    .av-1 { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+    .av-2 { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+    .av-3 { background: linear-gradient(135deg, #10b981, #059669); }
+    .post-author { margin: 0; font-size: 14px; font-weight: 600; }
+    .post-time { font-size: 12px; color: #71717a; }
+    
+    .pill { display: inline-block; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; margin-bottom: 10px; }
+    .pill-policy { background: rgba(96, 165, 250, 0.1); color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.2); }
+    .pill-building { background: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.2); }
+    
+    .post-content { margin: 0 0 16px; font-size: 14px; line-height: 1.5; color: #e4e4e7; }
+    .post-actions { display: flex; gap: 20px; }
+    .action { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #71717a; font-weight: 600; }
+    .action svg { width: 18px; height: 18px; stroke: currentColor; fill: none; }
+
+    /* Specific UI - Create Post/Notifications */
+    .app-input-area {
+      background: #0a0a0a; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 16px; min-height: 180px; margin-bottom: 16px;
+    }
+    .app-input-placeholder {
+      font-size: 20px; color: #52525b; font-weight: 500; margin-top: 8px;
+    }
+    .app-controls {
+      display: flex; justify-content: space-between; align-items: center; padding: 16px 0; border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .app-toggle {
+      width: 44px; height: 24px; background: #27272a; border-radius: 100px; position: relative;
+    }
+    .app-toggle::after {
+      content: ''; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: #fff; border-radius: 50%;
+    }
+    .app-toggle.active { background: var(--accent); }
+    .app-toggle.active::after { left: auto; right: 2px; }
+    
+    /* Notifications specific */
+    .notif-item { display: flex; gap: 16px; padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .notif-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items:center; justify-content:center; background: rgba(255,255,255,0.05); flex-shrink: 0; }
+    .notif-icon.hot { color: #f43f5e; background: rgba(244, 63, 94, 0.1); }
+    .notif-icon.reply { color: var(--accent); background: var(--accent-muted); }
+    .notif-text h4 { margin: 0 0 4px; font-size: 14px; font-weight: 600; display:flex; gap:8px;}
+    .notif-text p { margin: 0; font-size: 13px; color: #a1a1aa; line-height: 1.4; }
+    .unread-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin-top: 4px; }
+
+    /* Metrics Section */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      .metrics { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    }
+    .metric-value { font-size: 48px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.04em; }
+    .metric-label { font-size: 14px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* Footer */
+    footer {
+      background: #000;
+      border-top: 1px solid var(--border);
+      padding: 80px 0 40px;
+      margin-top: 120px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 80px;
+    }
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-top: 16px;
+      max-width: 320px;
+    }
+    .footer-col h4 {
+      font-size: 14px; font-weight: 600; margin: 0 0 20px; color: var(--text); letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .footer-col ul {
+      list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;
+    }
+    .footer-col a {
+      color: var(--text-muted); text-decoration: none; font-size: 15px; transition: color 0.2s ease;
+    }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Utility */
+    .fade-up {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-up.visible {
+      opacity: 1; transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container">
+      <nav>
+        <a href="#" class="logo">
+          <img src="Modern%20logo%20of%20CampusNet%20design.png" alt="Campus Net Logo" style="width: 64px; height: 64px; object-fit: contain;">
+          Campus Net
+        </a>
+          <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#community">Community</a>
+          </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container fade-up">
+      <div class="badge">
+        <div class="badge-indicator"></div>
+        The Pulse of Your Campus
+      </div>
+      <h1>Your Campus. Unfiltered.</h1>
+      <p>Tap into the absolute realest feed at your university. Anonymously spill, stay updated on sudden policy changes, and connect with people in your exact classes.</p>
+      
+      <div class="store-buttons">
+        <a href="#" class="store-btn">
+          <svg viewBox="0 0 384 512" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+          <div class="store-btn-text">
+            <span>Download on the</span>
+            <strong>App Store</strong>
+          </div>
+        </a>
+        <a href="#" class="store-btn">
+          <svg viewBox="0 0 512 512" fill="currentColor"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+          <div class="store-btn-text">
+            <span>GET IT ON</span>
+            <strong>Google Play</strong>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- First Showcase: The Feed -->
+    <section id="features" class="container">
+      <div class="showcase-grid">
+        <div class="showcase-text fade-up">
+          <div class="badge">The Feed</div>
+          <h2 class="section-title">No BS. Just what's actually happening.</h2>
+          <p class="section-desc">Instantly toggle between verified student confessions, massive building parties, and admin policy drops that actually affect your life.</p>
+          
+          <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:20px; margin-top:32px;">
+            <li style="display:flex; gap:16px;">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--text)" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <div>
+                <strong style="display:block; font-size:16px; margin-bottom:4px;">Verified Students Only</strong>
+                <span style="color:var(--text-muted); font-size:15px;">Only authenticated .edu emails. No bots. No outsiders.</span>
+              </div>
+            </li>
+            <li style="display:flex; gap:16px;">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--text)" style="flex-shrink:0"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              <div>
+                <strong style="display:block; font-size:16px; margin-bottom:4px;">Bulletproof Anonymity</strong>
+                <span style="color:var(--text-muted); font-size:15px;">Cryptographically secure so you can confess your worst messes without getting caught.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mockup-perspective fade-up">
+          <div class="device tilt-left">
+            <div class="device-notch"></div>
+            <div class="app-header">
+              <h2>Campus Net</h2>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"/></svg>
+            </div>
+            <div class="app-tabs">
+              <div class="app-tab tab-active">ALL</div>
+              <div class="app-tab tab-inactive">CONFESSIONS</div>
+              <div class="app-tab tab-inactive">POLICY</div>
+            </div>
+            <div class="app-body">
+              <div class="app-post">
+                <div class="post-head">
+                  <div class="avatar av-1">SP</div>
+                  <div>
+                    <div class="post-author">Sleepy Panda</div>
+                    <div class="post-time">2h ago</div>
+                  </div>
+                </div>
+                <div class="pill pill-policy">POLICY</div>
+                <p class="post-content">The new attendance policy is literally going to ruin my life. Who thought 85% was a good idea for seniors?!</p>
+                <div class="post-actions">
+                  <div class="action"><svg viewBox="0 0 24 24"><path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg> 42</div>
+                  <div class="action"><svg viewBox="0 0 24 24"><path d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z"/></svg> 2</div>
+                </div>
+              </div>
+              <div class="app-post" style="opacity:0.6;">
+                <div class="post-head">
+                  <div class="avatar av-3">HG</div>
+                  <div>
+                    <div class="post-author">Hacking Ghost</div>
+                    <div class="post-time">3h ago</div>
+                  </div>
+                </div>
+                <div class="pill pill-building">BUILDING</div>
+                <p class="post-content">Just launched the beta for my AI study buddy app! Running a test session in the lib.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Second Showcase: Notifications / Real-time -->
+    <section class="container">
+      <div class="showcase-grid reverse">
+        <div class="showcase-text fade-up">
+          <div class="badge">Real-Time Core</div>
+          <h2 class="section-title">Stay dangerously in the loop.</h2>
+          <p class="section-desc">Get pinged the second a confession goes viral, classes get canceled, or someone mentions you in the feed. Real-time updates so you're never the last to know.</p>
+        </div>
+
+        <div class="mockup-perspective fade-up">
+          <div class="device tilt-right">
+            <div class="device-notch"></div>
+            <div class="app-header">
+              <h2>Campus Net</h2>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M3 20h.01M12 4v4M8 8l4-4 4 4"/></svg>
+            </div>
+            <div class="app-tabs">
+              <div class="app-tab tab-active">ALL</div>
+              <div class="app-tab tab-inactive">UNREAD</div>
+              <div class="app-tab tab-inactive">MENTIONS</div>
+            </div>
+            <div class="app-body" style="padding:0;">
+              
+              <div class="notif-item" style="background:rgba(255,255,255,0.02)">
+                <div class="notif-icon hot"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/></svg></div>
+                <div class="notif-text" style="flex:1;">
+                  <h4>Trending <span class="unread-dot"></span></h4>
+                  <p>Your confession is blowing up. 45 new likes.</p>
+                  <span style="display:block; font-size:11px; margin-top:6px; color:#52525b">10m ago</span>
+                </div>
+              </div>
+
+              <div class="notif-item">
+                <div class="notif-icon reply"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg></div>
+                <div class="notif-text" style="flex:1;">
+                  <h4>New Comment</h4>
+                  <p>Ghost Coder replied to your policy vent.</p>
+                  <span style="display:block; font-size:11px; margin-top:6px; color:#52525b">1h ago</span>
+                </div>
+              </div>
+
+              <div class="notif-item">
+                <div class="notif-icon" style="color:var(--accent); background:var(--accent-muted);"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg></div>
+                <div class="notif-text" style="flex:1;">
+                  <h4>Milestone</h4>
+                  <p>Your project reached 25 likes.</p>
+                  <span style="display:block; font-size:11px; margin-top:6px; color:#52525b">2h ago</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deep Dive Features Bento Box -->
+    <section id="community" class="bento-section container">
+      <div style="text-align:center; max-width:800px; margin:0 auto;" class="fade-up">
+        <h2 class="section-title">Engineered for Campus Scale.</h2>
+        <p class="section-desc" style="margin: 0 auto;">Beyond simple feeds, Campus Net provides powerful primitives for community moderation, expression, and absolute privacy.</p>
+      </div>
+
+      <div class="bento-grid">
+        <div class="bento-box bento-large fade-up">
+          <div class="bento-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          </div>
+          <h3>Encrypted Anonymity Engine</h3>
+          <p>Toggle between your real profile and randomized, untraceable aliases like "Sleepy Panda" on a per-post basis. Built so even system admins can't reverse engineer your identity.</p>
+          
+          <div style="margin-top:32px; background:#000; border:1px solid rgba(255,255,255,0.1); border-radius:16px; padding:16px;">
+             <div class="app-controls" style="border:none; padding:8px 0;">
+                <span style="font-size:14px; font-weight:600;">Post Anonymously</span>
+                <div class="app-toggle active"></div>
+             </div>
+             <p style="font-size:12px; color:#52525b; margin:0;">Your identity will be masked as Ghost Nomad.</p>
+          </div>
+        </div>
+
+        <div class="bento-box fade-up">
+          <div class="bento-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h3>Campus Polls</h3>
+          <p>From debating the best late-night pizza to dragging the new attendance rule. Settle it with instant campus-wide polls.</p>
+        </div>
+
+        <div class="bento-box fade-up">
+          <div class="bento-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+          </div>
+          <h3>Niche Groups</h3>
+          <p>Keep the CS majors separate from the Art club. Create hyper-specific spaces for your dorm, your major, or your absolute worst study group.</p>
+        </div>
+
+        <div class="bento-box bento-large fade-up">
+          <div class="bento-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+          </div>
+          <h3>Smart Feed</h3>
+          <p>Mandatory tags like CONFESSIONS or POLICY keep the feed incredibly clean. Only see exactly what you're currently in the mood for.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid" style="grid-template-columns: 1fr;">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <img src="Modern%20logo%20of%20CampusNet%20design.png" alt="Campus Net Logo" style="width: 64px; height: 64px; object-fit: contain; filter: brightness(0) invert(1);">
+            Campus Net
+          </a>
+          <p>The definitive infrastructure built to securely connect, organize, and accelerate student life across premier universities worldwide.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Campus Net Technologies. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth fade-up animations on scroll
+    const fadeElements = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+    
+    fadeElements.forEach(el => observer.observe(el));
+    
+    // Add subtle parallax to devices
+    document.addEventListener('mousemove', (e) => {
+      const devices = document.querySelectorAll('.device');
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+      
+      devices.forEach(device => {
+        // preserve base tilt depending on class
+        let baseRotateY = 0; let baseRotateX = 4;
+        if(device.classList.contains('tilt-left')) baseRotateY = -8;
+        if(device.classList.contains('tilt-right')) baseRotateY = 8;
+        
+        device.style.transform = `rotateY(${baseRotateY + xAxis}deg) rotateX(${baseRotateX + yAxis}deg)`;
+      });
+    });
+  </script>
+</body>
+</html>
